@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:happy_texting/core/constants/images_paths.dart';
 
-import 'package:happy_texting/core/widgets/Logo.dart';
 import 'package:happy_texting/core/widgets/custom_button.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
 import 'package:happy_texting/core/widgets/custom_text_field.dart';
@@ -12,8 +12,8 @@ import 'package:happy_texting/core/widgets/show_snackbar.dart';
 // ignore: must_be_immutable
 class ResetPassword extends StatelessWidget {
   ResetPassword({super.key});
-  static String id = 'Reset Password';
-  final GlobalKey<FormState> formKey = GlobalKey();
+  final formFiledKey = GlobalKey<FormFieldState>();
+  final formKey = GlobalKey<FormState>();
   String? email;
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,11 @@ class ResetPassword extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Logo(
-                    size: 27.sp,
-                  ),
+                  Image.asset(
+                    kHappyTextImage,
+                    width: 289.w,
+                    height: 50.h,
+                  )
                 ],
               ),
               SizedBox(
@@ -86,8 +88,8 @@ class ResetPassword extends StatelessWidget {
                           ),
                           CustomTextFormField(
                             // ignore: body_might_complete_normally_nullable
-                            validator: (data) {
-                              if (data!.isEmpty) {
+                            validator: (password) {
+                              if (password!.isEmpty && password.length <= 4) {
                                 return 'the field is required';
                               }
                             },
@@ -113,9 +115,10 @@ class ResetPassword extends StatelessWidget {
                             // ignore: body_might_complete_normally_nullable
                             validator: (data) {
                               if (data!.isEmpty) {
-                                return 'the field is required';
+                                return 'field is required';
                               }
                             },
+
                             obscureText: true,
                           ),
                           SizedBox(height: 81.sp),
@@ -127,7 +130,7 @@ class ResetPassword extends StatelessWidget {
                                 showSnackBar(
                                     context, 'your password is updated');
                               } else {
-                                showSnackBar(context, 'Enter your email');
+                                showSnackBar(context, 'Enter your password');
                               }
                             },
                           ),

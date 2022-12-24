@@ -4,15 +4,20 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
-      {Key? key, this.onChanged, this.obscureText, this.validator})
+      {Key? key,
+      this.onChanged,
+      this.obscureText,
+      this.validator,
+      this.controller})
       : super(key: key);
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
   final bool? obscureText;
-
+  final dynamic controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       // ignore: body_might_complete_normally_nullable
       validator: validator,
       obscureText: obscureText!,

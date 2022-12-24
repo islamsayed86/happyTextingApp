@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:happy_texting/core/constants/colors.dart';
-import 'package:happy_texting/core/widgets/Logo.dart';
+import 'package:happy_texting/core/constants/images_paths.dart';
 import 'package:happy_texting/core/widgets/custom_button.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
 import 'package:happy_texting/core/widgets/custom_text_field.dart';
@@ -29,13 +29,15 @@ class ForgotPassword extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Logo(
-                    size: 27.sp,
-                  ),
+                  Image.asset(
+                    kHappyTextImage,
+                    width: 289.w,
+                    height: 50.h,
+                  )
                 ],
               ),
               SizedBox(
-                height: 22.h,
+                height: 35.h,
               ),
               Padding(
                 padding: EdgeInsets.all(8.0.sp),

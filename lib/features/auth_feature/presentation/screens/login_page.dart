@@ -1,9 +1,11 @@
+// ignore_for_file: body_might_complete_normally_nullable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:happy_texting/core/constants/images_paths.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/widgets/Custom_GestureDetector.dart';
-import '../../../../core/widgets/Logo.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_container.dart';
 import '../../../../core/widgets/custom_text_field.dart';
@@ -12,7 +14,7 @@ import '../../../../core/widgets/show_snackbar.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
-  final GlobalKey<FormState>? formKey = GlobalKey();
+  final GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +30,10 @@ class LoginPage extends StatelessWidget {
           key: formKey,
           child: ListView(
             children: [
-              Logo(
-                size: 50.sp,
+              Image.asset(
+                kHappyTextImage,
+                width: 341.w,
+                height: 65.h,
               ),
               Padding(
                 padding:
@@ -58,7 +62,12 @@ class LoginPage extends StatelessWidget {
                             SizedBox(
                               height: 10.h,
                             ),
-                            const CustomTextFormField(
+                            CustomTextFormField(
+                              validator: (data) {
+                                if (data!.isEmpty) {
+                                  return 'the field is required';
+                                }
+                              },
                               obscureText: false,
                             ),
                             SizedBox(
@@ -77,7 +86,12 @@ class LoginPage extends StatelessWidget {
                             SizedBox(
                               height: 10.h,
                             ),
-                            const CustomTextFormField(
+                            CustomTextFormField(
+                              validator: (data) {
+                                if (data!.isEmpty) {
+                                  return 'the field is required';
+                                }
+                              },
                               obscureText: true,
                             ),
                             SizedBox(height: 10.h),
@@ -102,7 +116,9 @@ class LoginPage extends StatelessWidget {
                             CustomButton(
                               text: 'Login',
                               ontap: () {
-                                showSnackBar(context, 'successful');
+                                if (formKey.currentState!.validate()) {
+                                  showSnackBar(context, 'successful');
+                                }
                               },
                             ),
                           ],
