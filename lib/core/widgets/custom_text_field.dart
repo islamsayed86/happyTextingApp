@@ -18,7 +18,6 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      // ignore: body_might_complete_normally_nullable
       validator: validator,
       obscureText: obscureText!,
       onChanged: onChanged,
