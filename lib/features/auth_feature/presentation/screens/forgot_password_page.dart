@@ -1,9 +1,8 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:happy_texting/core/constants/colors.dart';
 import 'package:happy_texting/core/constants/images_paths.dart';
+import 'package:happy_texting/core/shared/validation.dart';
 import 'package:happy_texting/core/widgets/custom_button.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
 import 'package:happy_texting/core/widgets/custom_text_field.dart';
@@ -95,10 +94,7 @@ class ForgotPassword extends StatelessWidget {
                           height: 10.h,
                         ),
                         CustomTextFormField(
-                          validator: (email) =>
-                              email != null && EmailValidator.validate(email)
-                                  ? null
-                                  : "Please enter a valid email",
+                          validator: validateEmail,
                           onChanged: (data) {
                             email = data;
                           },

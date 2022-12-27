@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/images_paths.dart';
+import 'package:happy_texting/core/shared/validation.dart';
 
 import 'package:happy_texting/core/widgets/custom_button.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
@@ -12,7 +13,7 @@ import 'package:happy_texting/core/widgets/show_snackbar.dart';
 // ignore: must_be_immutable
 class ResetPassword extends StatelessWidget {
   ResetPassword({super.key});
-  final controller = TextEditingController();
+  final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String? email;
   @override
@@ -87,13 +88,8 @@ class ResetPassword extends StatelessWidget {
                             height: 10.sp,
                           ),
                           CustomTextFormField(
-                            controller: controller,
-                            // ignore: body_might_complete_normally_nullable
-                            validator: (password) {
-                              if (password!.isEmpty && password.length <= 4) {
-                                return 'the field is required';
-                              }
-                            },
+                            controller: passwordController,
+                            validator: validation,
                             obscureText: true,
                           ),
                           SizedBox(
@@ -115,7 +111,7 @@ class ResetPassword extends StatelessWidget {
                           CustomTextFormField(
                             // ignore: body_might_complete_normally_nullable
                             validator: (data) {
-                              if (data != controller.text) {
+                              if (data != passwordController.text) {
                                 return 'the password does not matched';
                               }
                             },

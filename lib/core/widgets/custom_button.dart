@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:happy_texting/core/constants/colors.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key, this.ontap, required this.text});
@@ -11,7 +12,7 @@ class CustomButton extends StatelessWidget {
       onTap: ontap,
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xff031D4A),
+          color: kDarkBlue,
           borderRadius: BorderRadius.circular(4.sp),
         ),
         width: 340.w,
@@ -20,9 +21,7 @@ class CustomButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-                color: const Color(0xffFFFFFF),
-                fontSize: 16.sp,
-                fontFamily: 'metropolis'),
+                color: Colors.white, fontSize: 16.sp, fontFamily: 'metropolis'),
           ),
         ),
       ),
