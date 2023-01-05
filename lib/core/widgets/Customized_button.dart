@@ -8,19 +8,19 @@ import 'package:happy_texting/core/widgets/custom_text_style.dart';
 class CustomizedButton extends StatelessWidget {
   const CustomizedButton({
     Key? key,
-    this.onTap,
-    required this.yourText,
+    this.ontap,
+    required this.text,
     required this.width,
-    this.color,
+    required this.color,
   }) : super(key: key);
-  final void Function()? onTap;
-  final String yourText;
+  final void Function()? ontap;
+  final String text;
   final double width;
   final dynamic color;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: ontap,
       child: Ink(
         decoration: BoxDecoration(
           color: color,
@@ -30,7 +30,7 @@ class CustomizedButton extends StatelessWidget {
         height: 48.h,
         child: Center(
           child: CustomTextStyle(
-            yourText: yourText,
+            text: text,
             size: 16.sp,
             color: kWhite,
           ),

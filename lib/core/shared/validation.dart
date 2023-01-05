@@ -1,17 +1,19 @@
-// ignore_for_file: body_might_complete_normally_nullable
+// ignore_for_file: body_might_complete_normally_nullable, unrelated_type_equality_checks
 import 'package:email_validator/email_validator.dart';
 
 String? validateEmail(String? email) {
-  return email != null && EmailValidator.validate(email)
-      ? null
-      : "Please enter a valid email";
-}
-
-String? validation(String? password) {
-  if (password!.isEmpty || password.length <= 4) {
-    return 'the field is required';
+  if (email!.isEmpty) {
+    return 'Please enter your email';
+  } else {
+    if (EmailValidator.validate(email)) {
+      return null;
+    } else {
+      return 'please enter a vaild email\nExampel@mail.com';
+    }
   }
-  // return 'the password must more than 4 characters';
+  //  email != null && EmailValidator.validate(email)
+  //     ? null
+  //     : "Please enter a valid email";
 }
 
 String? validatePassword(String? value) {
@@ -21,7 +23,7 @@ String? validatePassword(String? value) {
     return 'Please enter your password';
   } else {
     if (!regex.hasMatch(value)) {
-      return 'password should contain capital letters,\nsymbols and numbers';
+      return 'password should contain 5 chracters,\ncapital letters,symbols and numbers';
     } else {
       return null;
     }

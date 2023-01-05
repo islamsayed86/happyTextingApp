@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/colors.dart';
 import 'package:happy_texting/core/constants/images_paths.dart';
 import 'package:happy_texting/core/shared/validation.dart';
-import 'package:happy_texting/core/widgets/custom_button.dart';
+import 'package:happy_texting/core/widgets/Customized_button.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
 import 'package:happy_texting/core/widgets/custom_text_field.dart';
 import 'package:happy_texting/core/widgets/custom_text_style.dart';
@@ -18,7 +18,7 @@ class ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kLightGrey,
+      backgroundColor: kLightGrey1,
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 25.sp),
         child: Form(
@@ -55,7 +55,7 @@ class ForgotPassword extends StatelessWidget {
                         width: 10.sp,
                       ),
                       CustomTextStyle(
-                        yourText: 'Forgot Your Password?',
+                        text: 'Forgot Your Password?',
                         color: kDarkGrey,
                         size: 24.sp,
                       ),
@@ -74,46 +74,49 @@ class ForgotPassword extends StatelessWidget {
                   hight: 201.h,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15.5.sp),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 37.5.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            CustomTextStyle(
-                              yourText: 'Email',
-                              size: 13.sp,
-                              color: kDarkerGrey,
-                            )
-                            // CustomFormTextFiled()
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        CustomTextFormField(
-                          validator: validateEmail,
-                          onChanged: (data) {
-                            email = data;
-                          },
-                          obscureText: false,
-                        ),
-                        SizedBox(height: 20.h),
-                        CustomButton(
-                          ontap: () {
-                            if (formKey.currentState!.validate()) {
-                              Navigator.pushNamed(context, 'ResetPassword',
-                                  arguments: email);
-                              // EnterEmail(yourEmail: email!));
-                            } else {
-                              showSnackBar(context, 'the filed is required');
-                            }
-                          },
-                          text: 'Send me reset instruction',
-                        ),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 37.5.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              CustomTextStyle(
+                                text: 'Email',
+                                size: 13.sp,
+                                color: kDarkerGrey,
+                              )
+                              // CustomFormTextFiled()
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          CustomTextFormField(
+                            validator: validateEmail,
+                            onChanged: (data) {
+                              email = data;
+                            },
+                            obscureText: false,
+                          ),
+                          SizedBox(height: 20.h),
+                          CustomizedButton(
+                            ontap: () {
+                              if (formKey.currentState!.validate()) {
+                                Navigator.pushNamed(context, 'ResetPassword',
+                                    arguments: email);
+                              } else {
+                                showSnackBar(context, 'the filed is required');
+                              }
+                            },
+                            text: 'Send me reset instruction',
+                            width: 340.w,
+                            color: kDarkBlue,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

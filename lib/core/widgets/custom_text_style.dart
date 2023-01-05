@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CustomTextStyle extends StatelessWidget {
-  const CustomTextStyle({Key? key, this.yourText, this.size, this.color})
+  const CustomTextStyle({Key? key, this.text, this.size, this.color})
       : super(key: key);
-  final String? yourText;
+  final String? text;
   final double? size;
   final dynamic color;
   @override
   Widget build(BuildContext context) {
     return Text(
-      '$yourText',
+      '$text',
       style: TextStyle(
         fontFamily: 'metropolis',
         fontSize: size,

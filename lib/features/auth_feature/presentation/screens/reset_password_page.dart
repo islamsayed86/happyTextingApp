@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/images_paths.dart';
 import 'package:happy_texting/core/shared/validation.dart';
-
-import 'package:happy_texting/core/widgets/custom_button.dart';
+import 'package:happy_texting/core/widgets/Customized_button.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
 import 'package:happy_texting/core/widgets/custom_text_field.dart';
 import 'package:happy_texting/core/constants/colors.dart';
@@ -20,7 +19,7 @@ class ResetPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     email = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
-      backgroundColor: kLightGrey,
+      backgroundColor: kLightGrey1,
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 25.sp),
         child: Form(
@@ -49,7 +48,7 @@ class ResetPassword extends StatelessWidget {
                   child: Row(
                     children: [
                       CustomTextStyle(
-                        yourText: 'Reset Your Password?',
+                        text: 'Reset Your Password?',
                         color: kDarkGrey,
                         size: 24.sp,
                       ),
@@ -78,7 +77,7 @@ class ResetPassword extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CustomTextStyle(
-                                yourText: 'New Password',
+                                text: 'New Password',
                                 size: 13.sp,
                                 color: kDarkerGrey,
                               )
@@ -89,7 +88,7 @@ class ResetPassword extends StatelessWidget {
                           ),
                           CustomTextFormField(
                             controller: passwordController,
-                            validator: validation,
+                            validator: validatePassword,
                             obscureText: true,
                           ),
                           SizedBox(
@@ -99,7 +98,7 @@ class ResetPassword extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CustomTextStyle(
-                                yourText: 'Confirm New Password',
+                                text: 'Confirm New Password',
                                 size: 13.sp,
                                 color: kDarkerGrey,
                               ),
@@ -119,7 +118,7 @@ class ResetPassword extends StatelessWidget {
                             obscureText: true,
                           ),
                           SizedBox(height: 81.sp),
-                          CustomButton(
+                          CustomizedButton(
                             text: 'Send me reset instruction',
                             ontap: () {
                               if (formKey.currentState!.validate()) {
@@ -130,6 +129,8 @@ class ResetPassword extends StatelessWidget {
                                 showSnackBar(context, 'Enter your password');
                               }
                             },
+                            color: kDarkBlue,
+                            width: 340.w,
                           ),
                         ],
                       ),
@@ -142,7 +143,7 @@ class ResetPassword extends StatelessWidget {
               ),
               Center(
                 child: CustomTextStyle(
-                  yourText: 'your email is : $email ',
+                  text: 'your email is : $email ',
                   size: 16.sp,
                   color: kGrey,
                 ),
