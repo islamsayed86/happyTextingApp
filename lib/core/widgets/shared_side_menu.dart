@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:happy_texting/core/constants/colors.dart';
 import 'package:happy_texting/core/constants/images_paths.dart';
 import 'package:happy_texting/core/constants/styles.dart';
@@ -39,85 +38,57 @@ class SideMenu extends StatelessWidget {
               ],
             ),
           ),
-          SideMenuItem(
+          const SideMenuIetms(
             title: 'Home',
-            leadingIcon: SvgPicture.asset(
-              kHomeImage,
-              color: kGreyWhiteColor,
-            ),
+            imageName: kHomeImage,
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kSendMsgImage,
-              color: kGreyWhiteColor,
-            ),
+          const SideMenuIetms(
             title: 'Send a Message',
+            imageName: kSendMsgImage,
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kTextWordsImage,
-              color: kGreyWhiteColor,
-            ),
+          const SideMenuIetms(
             title: 'Textwords',
+            imageName: kTextWordsImage,
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kContactsImage,
-              color: kGreyWhiteColor,
-            ),
+          const SideMenuIetms(
             title: 'Contacts',
+            imageName: kContactsImage,
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kSentCampImage,
-              color: kGreyWhiteColor,
-            ),
+          const SideMenuIetms(
             title: 'Sent Campaigns',
+            imageName: kSentCampImage,
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kInboxImage,
-              color: kGreyWhiteColor,
-            ),
+          const SideMenuIetms(
             title: 'Inbox',
+            imageName: kInboxImage,
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kHomeImage,
-              color: kGreyWhiteColor,
-            ),
+          const SideMenuIetms(
             title: 'Analytics',
+            imageName: kHomeImage,
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kHomeImage,
-              color: kGreyWhiteColor,
-            ),
+          const SideMenuIetms(
             title: 'My Account',
+            imageName: kAccountImage,
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kMyPlanImage,
-              color: kGreyWhiteColor,
-            ),
+          const SideMenuIetms(
             title: 'My Plan',
+            imageName: kMyPlanImage,
           ),
           const Divider(
             height: 3,
             color: kLightGrey,
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kHomeImage,
+          const SideMenuItem(
+            leadingIcon: Icon(
+              Icons.email,
+              size: 20,
               color: kGreyWhiteColor,
             ),
             title: 'Contact us',
           ),
-          SideMenuItem(
-            leadingIcon: SvgPicture.asset(
-              kLogoutImage,
-            ),
+          const SideMenuIetms(
             title: 'Log Out',
+            imageName: kLogoutImage,
           ),
         ],
       ),
