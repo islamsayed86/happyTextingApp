@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:happy_texting/core/constants/colors.dart';
+import 'package:happy_texting/core/constants/images_paths.dart';
 import 'package:happy_texting/core/constants/styles.dart';
 
 class RecentCampaignsTitlesContainer extends StatelessWidget {
@@ -26,9 +28,9 @@ class RecentCampaignsTitlesContainer extends StatelessWidget {
               'Date',
               style: kText12,
             ),
-            Icon(
-              Icons.book_outlined,
-              color: Colors.grey[500],
+            SvgPicture.asset(
+              kContactsImage,
+              color: kSpColor,
             ),
             const Center(
               child: Text(

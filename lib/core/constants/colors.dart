@@ -16,6 +16,7 @@ const kLightGrayColor = Color(0xFFE1E4E8);
 const kRedColor = Color(0xFFFB3640);
 const kYellowColor = Color(0xFFFFCB47);
 const kAppBarBarHappyColor = Color(0xFF81CFD2);
+const kAppBarBarSendIconColor = Color(0xFF80CFD3);
 const kDarkRedColor = Color(0xFF820813);
 const kBorderColor = Color(0xFFD0D1D3);
 const kScaffoldBackGroundColor = Color(0xFFF9FBFF);

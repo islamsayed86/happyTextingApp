@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:happy_texting/core/constants/colors.dart';
 import 'package:happy_texting/core/constants/images_paths.dart';
 import 'package:happy_texting/core/constants/styles.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
 import 'package:happy_texting/core/widgets/shared_side_menu.dart';
-import 'package:happy_texting/features/auth_feature/presentation/widgets/dashboard_containers_leading_title.dart';
-import 'package:happy_texting/features/auth_feature/presentation/widgets/recent_campaigns_titles_container.dart';
-import 'package:happy_texting/features/auth_feature/presentation/widgets/cartesian_chart.dart';
-import 'package:happy_texting/features/auth_feature/presentation/widgets/dashboard_chart.dart';
-import 'package:happy_texting/features/auth_feature/presentation/widgets/colored_dashboard_container.dart';
-import 'package:happy_texting/features/auth_feature/presentation/widgets/recent_camaigns_item.dart';
+import 'package:happy_texting/features/dashboard/presentation/widgets/dashboard_containers_leading_title.dart';
+import 'package:happy_texting/features/dashboard/presentation/widgets/recent_campaigns_titles_container.dart';
+import 'package:happy_texting/features/dashboard/presentation/widgets/cartesian_chart.dart';
+import 'package:happy_texting/features/dashboard/presentation/widgets/dashboard_chart.dart';
+import 'package:happy_texting/features/dashboard/presentation/widgets/colored_dashboard_container.dart';
+import 'package:happy_texting/features/dashboard/presentation/widgets/recent_camaigns_item.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -21,6 +22,21 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
         drawer: const SideMenu(),
         appBar: AppBar(
+          leading: Builder(builder: (context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              icon: Padding(
+                padding: EdgeInsets.only(top: 20.sp),
+                child: Icon(
+                  Icons.menu_rounded,
+                  size: 30.sp,
+                ),
+              ),
+            );
+          }),
           toolbarHeight: 90.h,
           backgroundColor: kDarkBlue,
           systemOverlayStyle: const SystemUiOverlayStyle(
@@ -28,10 +44,19 @@ class DashboardScreen extends StatelessWidget {
             statusBarColor: kDarkBlue,
           ),
           title: Padding(
-            padding: EdgeInsets.only(right: 15.sp),
-            child: Image.asset(
-              kAppBarImage,
-              scale: 1.1.sp,
+            padding: EdgeInsets.fromLTRB(40.sp, 25.sp, 0.sp, 0.sp),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(
+                  kAppBarImage,
+                  scale: 1.1.sp,
+                ),
+                SvgPicture.asset(
+                  kSendMessageImage,
+                  color: kAppBarBarSendIconColor,
+                ),
+              ],
             ),
           ),
         ),
@@ -173,7 +198,7 @@ class DashboardScreen extends StatelessWidget {
                       textWords: 'hamden',
                       date: ' "July 6, 2021\n@10:15 am",',
                       number: '653',
-                      status: 'Send',
+                      status: 'Sent',
                     ),
                     SizedBox(
                       height: 18.h,
@@ -182,7 +207,7 @@ class DashboardScreen extends StatelessWidget {
                       textWords: 'hamden',
                       date: ' "July 6, 2021\n@10:15 am",',
                       number: '653',
-                      status: 'Send',
+                      status: 'Sent',
                     ),
                     SizedBox(
                       height: 18.h,
@@ -191,7 +216,7 @@ class DashboardScreen extends StatelessWidget {
                       textWords: 'hamden',
                       date: ' "July 6, 2021\n@10:15 am",',
                       number: '653',
-                      status: 'Send',
+                      status: 'Sent',
                     ),
                     SizedBox(
                       height: 18.h,
@@ -200,7 +225,7 @@ class DashboardScreen extends StatelessWidget {
                       textWords: 'hamden',
                       date: ' "July 6, 2021\n@10:15 am",',
                       number: '653',
-                      status: 'Send',
+                      status: 'Sent',
                     ),
                     SizedBox(
                       height: 18.h,
@@ -209,7 +234,7 @@ class DashboardScreen extends StatelessWidget {
                       textWords: 'hamden',
                       date: ' "July 6, 2021\n@10:15 am",',
                       number: '653',
-                      status: 'Send',
+                      status: 'Sent',
                     ),
                   ],
                 ),
