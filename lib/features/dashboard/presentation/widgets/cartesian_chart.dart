@@ -34,11 +34,12 @@ class CartesianChart extends StatelessWidget {
             borderWidth: 1.sp,
             dataSource: [
               // Bind data source
-              ChartData('8/12', 0),
-              ChartData('9/12', 2),
-              ChartData('10/12', 3),
-              ChartData('11/12', 3.5),
-              ChartData('12/12', 6),
+
+              ChartData('9/12', 0),
+              ChartData('10/12', 1),
+              ChartData('11/12', 2),
+              ChartData('13/12', 3.5),
+              ChartData('14/12', 6),
             ],
             xValueMapper: (ChartData data, _) => data.x,
             yValueMapper: (ChartData data, _) => data.y)

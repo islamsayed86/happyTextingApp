@@ -22,13 +22,17 @@ class RecentCampaignsItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            textWords,
-            style: kText14MediumGrey,
+          Flexible(
+            child: Text(
+              textWords,
+              style: kText14MediumGrey,
+            ),
           ),
-          Text(
-            date,
-            style: kText14MediumGrey,
+          Expanded(
+            child: Text(
+              date,
+              style: kText14MediumGrey,
+            ),
           ),
           Text(
             number,

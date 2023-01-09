@@ -4,8 +4,8 @@ import 'package:happy_texting/core/constants/colors.dart';
 import 'package:happy_texting/core/constants/strings.dart';
 import 'package:happy_texting/core/constants/styles.dart';
 
-class DashboardChart extends StatelessWidget {
-  const DashboardChart({
+class DashboardProgressBar extends StatelessWidget {
+  const DashboardProgressBar({
     super.key,
     required this.textUsage,
     required this.upgradePlan,
