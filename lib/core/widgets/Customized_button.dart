@@ -16,7 +16,7 @@ class CustomizedButton extends StatelessWidget {
   final void Function()? ontap;
   final String text;
   final double width;
-  final dynamic color;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return InkWell(

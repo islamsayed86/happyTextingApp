@@ -25,10 +25,10 @@ class RecentCampaignsTable extends StatelessWidget {
             height: 19.68.h,
           ),
           const RecentCampaignsItem(
-            textWords: 'hamden',
-            date: 'July 6, 2021\n@10:15 am',
+            textWords: 'hamdenhamden',
+            date: 'July 6, 2021 @10:15 am',
             number: '653',
-            status: 'Sent',
+            status: 'inProgressss',
           ),
           SizedBox(
             height: 18.h,

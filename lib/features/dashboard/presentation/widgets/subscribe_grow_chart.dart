@@ -26,7 +26,7 @@ class SubscribeGrothChart extends StatelessWidget {
           SizedBox(
             height: 58.h,
           ),
-          const CartesianChart(),
+          CartesianChart(),
         ],
       ),
     );

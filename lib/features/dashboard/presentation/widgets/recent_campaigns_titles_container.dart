@@ -16,7 +16,7 @@ class RecentCampaignsTitlesContainer extends StatelessWidget {
       color: kLightgrey2,
       height: 44.h,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.5.sp),
+        padding: EdgeInsets.symmetric(horizontal: 15.sp),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:happy_texting/core/constants/colors.dart';
 import 'package:happy_texting/core/constants/images_paths.dart';
+import 'package:happy_texting/core/constants/styles.dart';
+import 'package:happy_texting/core/widgets/customized_button.dart';
 
 class SharedAppBar extends StatelessWidget with PreferredSizeWidget {
   const SharedAppBar({
@@ -11,7 +13,11 @@ class SharedAppBar extends StatelessWidget with PreferredSizeWidget {
     this.leading,
     this.actions,
     this.icon,
-    this.isDoubleAppBar = false,
+    this.appBarWith2Titles = false,
+    this.appBarWithButton = false,
+    this.appBarWithButtonAndSubtitle = false,
+    this.appBarWithColoredTitle2 = false,
+    this.appBarWithTitle2Subtitle = false,
     this.subTitle,
     this.subTitleIcon,
     this.title2Icon,
@@ -23,7 +29,11 @@ class SharedAppBar extends StatelessWidget with PreferredSizeWidget {
   final Widget? leading;
   final String? title2;
   final List<Widget>? actions;
-  final bool? isDoubleAppBar;
+  final bool? appBarWithButtonAndSubtitle;
+  final bool? appBarWithButton;
+  final bool? appBarWithColoredTitle2;
+  final bool? appBarWithTitle2Subtitle;
+  final bool? appBarWith2Titles;
   final String? subTitle;
 
   @override
@@ -50,7 +60,7 @@ class SharedAppBar extends StatelessWidget with PreferredSizeWidget {
                     ),
                   );
                 }),
-            toolbarHeight: 90.h,
+            toolbarHeight: 80.h,
             backgroundColor: kDarkBlue,
             systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarIconBrightness: Brightness.light,
@@ -97,14 +107,222 @@ class SharedAppBar extends StatelessWidget with PreferredSizeWidget {
                   ),
                 ],
           ),
-          if (isDoubleAppBar!) Container(),
+          if (appBarWith2Titles!)
+            Container(
+              height: 70,
+              width: MediaQuery.of(context).size.width,
+              color: kDarkBlue,
+              child: Padding(
+                padding: EdgeInsets.only(left: 10.sp),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        title2Icon ??
+                            SvgPicture.asset(
+                              ksendMessageimage,
+                              color: Colors.white,
+                              height: 20,
+                            ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 14.sp),
+                          child: Column(
+                            children: [
+                              Text(
+                                title2 ?? ('Send a Message'),
+                                style: kText24SemiBoldWhite,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          if (appBarWithColoredTitle2!)
+            Container(
+              height: 97,
+              width: MediaQuery.of(context).size.width,
+              color: kDarkBlue,
+              child: Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 15.sp, vertical: 20.sp),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 6.sp),
+                      child: title2Icon ??
+                          SvgPicture.asset(
+                            kArrowBackImage,
+                            color: Colors.white,
+                            height: 20,
+                          ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 14.sp),
+                      child: RichText(
+                        text: const TextSpan(
+                          text: 'Set auto-reply for :',
+                          style: kText22MediumWhite,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '\nwordhere',
+                              style: kText24SemiBoldLightBlue,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          if (appBarWithTitle2Subtitle!)
+            Container(
+              height: 110.h,
+              width: MediaQuery.of(context).size.width,
+              color: kDarkBlue,
+              child: Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 10.sp, vertical: 25.sp),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        title2Icon ??
+                            SvgPicture.asset(
+                              kContactsImage,
+                              color: Colors.white,
+                              height: 20.h,
+                            ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 14.sp),
+                          child: Column(
+                            children: [
+                              Text(
+                                title2 ?? ('Contacts'),
+                                style: kText24SemiBoldWhite,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        title2Icon ??
+                            SvgPicture.asset(
+                              kfilterSvgImage,
+                              color: kLightBlueColor2,
+                              height: 16,
+                            ),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 14.sp),
+                            child: const Text(
+                              'Show Filters & Options',
+                              style: kText16MediumWhite,
+                            )
+                            //  RichText(
+                            //   text: const TextSpan(
+                            //     text: 'Your text usage will reset :',
+                            //     style: kText22MediumWhite,
+                            //     children: <TextSpan>[
+                            //       TextSpan(
+                            //         text: '\nAugust 20th.',
+                            //         style: TextStyle(color: kLightBlueColor2),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+
+                            ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          if (appBarWithButtonAndSubtitle!)
+            Material(
+              color: kDarkBlue,
+              child: Container(
+                height: 173.h,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          title2Icon ??
+                              SvgPicture.asset(
+                                kTextWordsImage,
+                                color: Colors.white,
+                                height: 20.h,
+                              ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                            child: Column(
+                              children: [
+                                Text(
+                                  title2 ?? ('My Textwords'),
+                                  style: kText24SemiBoldWhite,
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  subTitle ?? 'You have 6 unused textwords',
+                                  style: kText13SemiBold,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    CustomizedButton(
+                      text: 'Clone this campaign',
+                      ontap: () {},
+                      width: 340.w,
+                      color: kLightBlueColor2,
+                    ),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => Size.fromHeight((appBarWith2Titles ?? false)
+      ? 146.h
+      : (appBarWithColoredTitle2 ?? false)
+          ? 176.h
+          : (appBarWithTitle2Subtitle ?? false)
+              ? 196.h
+              : (appBarWithButton ?? false)
+                  ? 216.h
+                  : (appBarWithButtonAndSubtitle ?? false)
+                      ? 253.h
+                      : 80.h);
 }
 
 
