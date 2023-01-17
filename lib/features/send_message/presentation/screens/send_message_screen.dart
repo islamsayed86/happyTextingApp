@@ -187,6 +187,9 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                           setState(() => _isNow = !_isNow);
                           setState(() =>
                               _changeNowButtonColor = !_changeNowButtonColor);
+                          setState(() => _changeLaterButtonColor =
+                              !_changeLaterButtonColor);
+                          setState(() => _isLater = !_isLater);
                         },
                         width: 108.w,
                         color: _changeNowButtonColor
@@ -199,6 +202,9 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                           setState(() => _changeLaterButtonColor =
                               !_changeLaterButtonColor);
                           setState(() => _isLater = !_isLater);
+                          setState(() =>
+                              _changeNowButtonColor = !_changeNowButtonColor);
+                          setState(() => _isNow = !_isNow);
                         },
                         width: 108.w,
                         color: _changeLaterButtonColor

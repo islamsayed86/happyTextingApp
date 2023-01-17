@@ -18,7 +18,6 @@ class DateTimePickerContainer extends StatefulWidget {
 class _DateTimePickerContainerState extends State<DateTimePickerContainer> {
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
-  TimeOfDay selectedHours = const TimeOfDay(hour: 12, minute: 59);
 
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -65,12 +64,15 @@ class _DateTimePickerContainerState extends State<DateTimePickerContainer> {
           children: [
             CustomContainer(
               hight: 48.h,
-              width: 80.sp,
+              width: 80.w,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(16.sp, 0, 3.sp, 0),
                 child: Row(
                   children: [
-                    Text(hours),
+                    Text(
+                      hours,
+                      style: kText16MediumGrey2,
+                    ),
                     IconButton(
                       onPressed: (() => selectTime(context)),
                       icon: const Icon(Icons.arrow_drop_down_outlined),
@@ -81,11 +83,10 @@ class _DateTimePickerContainerState extends State<DateTimePickerContainer> {
             ),
             CustomContainer(
               hight: 48.h,
-              width: 80.sp,
+              width: 90.w,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(16.sp, 0, 3.sp, 0),
+                padding: EdgeInsets.fromLTRB(16.sp, 0, 7, 0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       minutes,
