@@ -5,7 +5,7 @@ class CustomTextStyle extends StatelessWidget {
       : super(key: key);
   final String? text;
   final double? size;
-  final dynamic color;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Text(

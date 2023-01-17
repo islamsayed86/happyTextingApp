@@ -1,12 +1,12 @@
-// ignore_for_file: file_names, must_be_immutable
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/colors.dart';
-import 'package:happy_texting/core/widgets/custom_text_style.dart';
+import 'package:happy_texting/core/constants/styles.dart';
 
-class CustomizedButton extends StatelessWidget {
-  CustomizedButton({
+class DateButton extends StatelessWidget {
+  DateButton({
     Key? key,
     this.ontap,
     required this.text,
@@ -27,14 +27,24 @@ class CustomizedButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(4.sp),
+          border: Border.all(
+            style: BorderStyle.solid,
+            color: kLightGrayColor,
+            width: 1,
+          ),
         ),
         width: width,
         height: 48.h,
-        child: Center(
-          child: CustomTextStyle(
-            text: text,
-            size: 16.sp,
-            color: textColor ?? kWhite,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            16.sp,
+            14.sp,
+            40.sp,
+            10.sp,
+          ),
+          child: Text(
+            text,
+            style: kText16MediumGrey2,
           ),
         ),
       ),

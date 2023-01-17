@@ -126,8 +126,13 @@ const kText22Bold = TextStyle(
 const kText18Bold = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
 const kText30Bold = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 const kText13 = TextStyle(fontSize: 13);
-const kText13SemiBold =
-    TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white);
+final kText13SemiBold = TextStyle(
+    fontSize: 13.sp, fontWeight: FontWeight.w600, color: Colors.white);
+final kText13SemiBoldGrey = TextStyle(
+    fontSize: 13.sp,
+    fontWeight: FontWeight.w500,
+    color: kDarkerGrey,
+    height: 1.25.sp);
 const kText15 = TextStyle(fontSize: 15);
 const kText15Bold = TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
 const kText16Grey = TextStyle(fontSize: 16, color: kGreyColor);

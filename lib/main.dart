@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:happy_texting/features/auth_feature/data/models/app_router.dart';
+import 'package:happy_texting/core/helpers/app_router.dart';
 
 void main() {
   runApp(const HappyTexting());
@@ -19,7 +19,7 @@ class HappyTexting extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             routes: appRoutes,
-            initialRoute: 'DashboardScreen',
+            initialRoute: 'SendMassageScreen',
             debugShowCheckedModeBanner: false,
           );
         });
