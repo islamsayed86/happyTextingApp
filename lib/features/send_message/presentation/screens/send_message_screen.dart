@@ -1,4 +1,6 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, must_be_immutable
+
+import 'dart:developer';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,10 @@ import 'package:happy_texting/core/widgets/custom_container.dart';
 import 'package:happy_texting/core/widgets/custom_text_field.dart';
 import 'package:happy_texting/core/widgets/customized_button.dart';
 import 'package:happy_texting/core/widgets/message_field.dart';
+import 'package:happy_texting/core/widgets/show_snackbar.dart';
+import 'package:happy_texting/features/send_message/presentation/widgets/date_form_field.dart';
 import 'package:happy_texting/features/send_message/presentation/widgets/date_time_picker.dart';
+// import 'package:happy_texting/features/send_message/presentation/widgets/time_widget.dart';
 
 class SendMassageScreen extends StatefulWidget {
   const SendMassageScreen({
@@ -21,19 +26,16 @@ class SendMassageScreen extends StatefulWidget {
   State<SendMassageScreen> createState() => _SendMassageScreenState();
 }
 
+enum SendMessagestartTime { now, later, regularly }
+
 class _SendMassageScreenState extends State<SendMassageScreen> {
   final GlobalKey<FormState> formKey = GlobalKey();
-  String? date;
-  int? numOfCharacter = 0;
-  bool _changeNowButtonColor = false;
-  bool _changeLaterButtonColor = false;
-  bool _changeRegularlyButtonColor = false;
-  bool _isNow = true;
-  bool _isLater = false;
-  // final bool _isRegularly = false;
+  int? numOfMessageFiledCharacters = 0;
+  SendMessagestartTime sendMessagestartTimes = SendMessagestartTime.now;
   final TextEditingController _campaignNameController = TextEditingController();
   final TextEditingController _messageFieldController = TextEditingController();
-
+  String? selectedTextWord;
+  String? selectedDate;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +83,14 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                         SizedBox(
                           height: 16.h,
                         ),
+                        CustomDateFormField(
+                          controller: _campaignNameController,
+                          obscureText: false,
+                          hintText: 'Input Text',
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -95,6 +105,7 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                           height: 10.h,
                         ),
                         DropdownSearch<String>(
+                          onSaved: (newValue) => print(newValue),
                           popupProps: const PopupProps.menu(
                               // showSelectedItems: true,
                               // disabledItemFn: (String s) => s.startsWith('I'),
@@ -105,6 +116,11 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                             "textword 2",
                             'textword 3'
                           ],
+                          onBeforeChange: ((prevItem, nextItem) async {
+                            selectedTextWord = nextItem!;
+                            log('selectedTextWord $selectedTextWord');
+                            return true;
+                          }),
                           dropdownDecoratorProps: DropDownDecoratorProps(
                             dropdownSearchDecoration: InputDecoration(
                                 contentPadding: EdgeInsets.fromLTRB(
@@ -135,7 +151,7 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                               style: kText13SemiBoldGrey,
                             ),
                             Text(
-                              '$numOfCharacter/160',
+                              '$numOfMessageFiledCharacters/160',
                               style: kText13SemiBoldGrey,
                             )
                             // CustomFormTextFiled()
@@ -146,9 +162,15 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                         ),
                         MessageField(
                           controller: _messageFieldController,
+                          validator: (str) {
+                            if (str != null && str.isEmpty) {
+                              return 'please type your message';
+                              ////qween validator
+                            }
+                          },
                           onChanged: (data) {
                             setState(() {});
-                            numOfCharacter = data.length;
+                            numOfMessageFiledCharacters = data.length;
                           },
                         ),
                       ],
@@ -184,53 +206,154 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                       CustomizedButton(
                         text: 'Now',
                         ontap: () {
-                          setState(() => _isNow = !_isNow);
                           setState(() =>
-                              _changeNowButtonColor = !_changeNowButtonColor);
-                          setState(() => _changeLaterButtonColor =
-                              !_changeLaterButtonColor);
-                          setState(() => _isLater = !_isLater);
+                              sendMessagestartTimes = SendMessagestartTime.now);
                         },
                         width: 108.w,
-                        color: _changeNowButtonColor
-                            ? kGreyWhiteColor
-                            : kLightBlueColor2,
+                        color: sendMessagestartTimes == SendMessagestartTime.now
+                            ? kLightBlueColor2
+                            : kGreyWhiteColor,
                       ),
                       CustomizedButton(
                         text: 'Later',
                         ontap: () {
-                          setState(() => _changeLaterButtonColor =
-                              !_changeLaterButtonColor);
-                          setState(() => _isLater = !_isLater);
-                          setState(() =>
-                              _changeNowButtonColor = !_changeNowButtonColor);
-                          setState(() => _isNow = !_isNow);
+                          setState(() => sendMessagestartTimes =
+                              SendMessagestartTime.later);
                         },
                         width: 108.w,
-                        color: _changeLaterButtonColor
-                            ? kRedColor
-                            : kGreyWhiteColor,
+                        color:
+                            sendMessagestartTimes == SendMessagestartTime.later
+                                ? kRedColor
+                                : kGreyWhiteColor,
                       ),
                       CustomizedButton(
                         text: 'Regularly',
                         ontap: () {
-                          setState(
-                            () => _changeRegularlyButtonColor =
-                                !_changeRegularlyButtonColor,
-                          );
+                          setState(() => sendMessagestartTimes =
+                              SendMessagestartTime.regularly);
                         },
                         width: 108.w,
-                        color: _changeRegularlyButtonColor
+                        color: sendMessagestartTimes ==
+                                SendMessagestartTime.regularly
                             ? kYellowColor
                             : kGreyWhiteColor,
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 16.h,
                   ),
-                  IsLaterContent(isLater: _isLater),
-                  IsNowContent(isNow: _isNow),
+                  Visibility(
+                    visible: sendMessagestartTimes ==
+                            SendMessagestartTime.later ||
+                        sendMessagestartTimes == SendMessagestartTime.regularly,
+                    child: Column(
+                      children: [
+                        /////Fix get the value of the selected date:search for callBack functions
+                        DateTimePickerContainer(
+                            width: 370.sp,
+                            callback: (str) {
+                              setState(() {
+                                selectedDate = str;
+                              });
+                            }),
+                        DropdownSearch<String>(
+                          onSaved: (newValue) => print(newValue),
+                          popupProps: const PopupProps.menu(
+                            fit: FlexFit.loose,
+                            // showSelectedItems: true,
+                            // disabledItemFn: (String s) => s.startsWith('I'),
+                          ),
+                          items: const [
+                            "Every Day",
+                            // "Icategory 2 (Disabled)",
+                            "Every Week",
+                            'Every month'
+                          ],
+                          onBeforeChange: ((prevItem, nextItem) async {
+                            selectedTextWord = nextItem!;
+                            log('selectedTextWord $selectedTextWord');
+                            return true;
+                          }),
+                          dropdownDecoratorProps: DropDownDecoratorProps(
+                            dropdownSearchDecoration: InputDecoration(
+                                helperMaxLines: 2,
+                                contentPadding: EdgeInsets.fromLTRB(
+                                  16.sp,
+                                  14.sp,
+                                  40.sp,
+                                  10.sp,
+                                ),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: kBorder,
+                                  ),
+                                ),
+                                hintText: 'Every month',
+                                hintStyle: kText16MediumGrey2,
+                                focusColor: Colors.white),
+                          ),
+                          onChanged: print,
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        Visibility(
+                          visible: sendMessagestartTimes ==
+                                  SendMessagestartTime.later ||
+                              sendMessagestartTimes ==
+                                  SendMessagestartTime.regularly,
+                          child: const TimeWidget(),
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  CustomizedButton(
+                    text: (sendMessagestartTimes == SendMessagestartTime.now)
+                        ? 'Send Message'
+                        : (sendMessagestartTimes == SendMessagestartTime.later)
+                            ? 'Schedule Message'
+                            : 'Create Message',
+                    ontap: () {
+                      if (sendMessagestartTimes == SendMessagestartTime.now) {
+                        if (formKey.currentState!.validate()) {
+                          showSnackBar(context, 'send now case vlaidates');
+                          print(_campaignNameController.text);
+                          print(_messageFieldController.text);
+                          print(selectedTextWord);
+                          print(selectedDate);
+                        }
+                      } else if (sendMessagestartTimes ==
+                          SendMessagestartTime.later) {
+                        if (formKey.currentState!.validate() &&
+                            _campaignNameController.text.isNotEmpty &&
+                            _messageFieldController.text.isNotEmpty &&
+                            selectedTextWord != null) {
+                          showSnackBar(context, 'send now case vlaidates');
+                          print(_campaignNameController.text);
+                          print(_messageFieldController.text);
+                          print(selectedTextWord);
+                          print(selectedHour);
+                          print(selectedMinute);
+                          print(selectedDate);
+                        }
+                      }
+                    },
+                    width: 340.w,
+                    color: (sendMessagestartTimes == SendMessagestartTime.now)
+                        ? kDarkBlue
+                        : (sendMessagestartTimes == SendMessagestartTime.later)
+                            ? kRedColor
+                            : (sendMessagestartTimes ==
+                                    SendMessagestartTime.regularly)
+                                ? kYellowColor
+                                : kLightGrayColor,
+                  ),
+                  // const IsNowContent(),
                 ],
               ),
             )
@@ -241,26 +364,116 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
   }
 }
 
-class IsNowContent extends StatelessWidget {
-  const IsNowContent({
-    Key? key,
-    required bool isNow,
-  })  : _isNow = isNow,
-        super(key: key);
+dynamic selectedHour = 1;
+dynamic selectedMinute = 1;
 
-  final bool _isNow;
+class TimeWidget extends StatefulWidget {
+  const TimeWidget({super.key});
 
   @override
+  State<TimeWidget> createState() => _TimeWidgetState();
+}
+
+class _TimeWidgetState extends State<TimeWidget> {
+  dynamic selectedHour = 1; ////now time ??
+  List hoursList = List<int>.generate(12, (i) => i + 1);
+  dynamic selectedMinutes = 1; ////now time ??
+  List minutesList = List<int>.generate(59, (i) => i + 1);
+  List amOrpmlist = ['am', 'pm'];
+  dynamic selectedamOrpm = ['am']; ////now time ??
+  @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Visibility(
-          visible: _isNow,
-          child: CustomizedButton(
-            text: 'Send Message',
-            ontap: () {},
-            width: 340.w,
-            color: kDarkBlue,
+        SizedBox(
+          width: 80.sp,
+          child: CustomContainer(
+            hight: 48.h,
+            child: Center(
+              child: DropdownButton(
+                menuMaxHeight: 96.h,
+                elevation: 0,
+                iconSize: 20.sp,
+                value: selectedHour,
+                items: hoursList
+                    .map(
+                      (item) => DropdownMenuItem(
+                        value: item,
+                        child: Text(
+                          '$item',
+                          style: kText16MediumGrey2,
+                        ),
+                      ),
+                    )
+                    .toList(),
+                onChanged: ((item) => setState(
+                      () => selectedMinutes = item,
+                    )),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 80.sp,
+          child: CustomContainer(
+            hight: 48.h,
+            child: Center(
+              child: DropdownButton(
+                menuMaxHeight: 96.h,
+                elevation: 0,
+                iconSize: 20.sp,
+                value: selectedMinutes,
+                items: minutesList
+                    .map(
+                      (item) => DropdownMenuItem(
+                        value: item,
+                        child: Text(
+                          '$item',
+                          style: kText16MediumGrey2,
+                        ),
+                      ),
+                    )
+                    .toList(),
+                onChanged: ((item) => setState(
+                      () => selectedMinutes = item,
+                    )),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 80.sp,
+          child: DropdownSearch<String>(
+            onSaved: (newValue) => print(newValue),
+            popupProps: const PopupProps.menu(fit: FlexFit.loose
+                // showSelectedItems: true,
+                // disabledItemFn: (String s) => s.startsWith('I'),
+                ),
+            items: const ['am', 'pm'],
+            onBeforeChange: ((prevItem, nextItem) async {
+              selectedamOrpm = nextItem!;
+              log('selectedTextWord $selectedamOrpm');
+              return true;
+            }),
+            dropdownDecoratorProps: DropDownDecoratorProps(
+              dropdownSearchDecoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(
+                    14.sp,
+                    0.sp,
+                    0.sp,
+                    0.sp,
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: kBorder,
+                    ),
+                  ),
+                  hintText: 'am',
+                  hintStyle: kText16MediumGrey2,
+                  focusColor: Colors.white),
+            ),
+            onChanged: print,
           ),
         ),
       ],
@@ -268,41 +481,26 @@ class IsNowContent extends StatelessWidget {
   }
 }
 
-class IsLaterContent extends StatelessWidget {
-  const IsLaterContent({
-    Key? key,
-    required bool isLater,
-  })  : _isLater = isLater,
-        super(key: key);
 
-  final bool _isLater;
+// class SendMessageTimesContent extends StatelessWidget {
+//   const SendMessageTimesContent({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Visibility(
-          visible: _isLater,
-          child: DateTimePickerContainer(
-            width: 300.w,
-          ),
-        ),
-        Visibility(
-          visible: _isLater,
-          child: SizedBox(
-            height: 22.h,
-          ),
-        ),
-        Visibility(
-          visible: _isLater,
-          child: CustomizedButton(
-            text: 'Schedule Message',
-            ontap: () {},
-            width: 340.w,
-            color: kRedColor,
-          ),
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Visibility(
+//             visible: sendMessagestartTimes == SendMessagestartTime.later,
+//             child: const TimeWidget()),
+//         Visibility(
+//           visible: sendMessagestartTimes == SendMessagestartTime.now ||
+//               sendMessagestartTimes == SendMessagestartTime.later ||
+//               sendMessagestartTimes == SendMessagestartTime.regularly,
+//           child: SizedBox(
+//             height: 22.h,
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
