@@ -19,7 +19,7 @@ class HappyTexting extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             routes: appRoutes,
-            initialRoute: 'SendMassageScreen',
+            initialRoute: 'MyTextWordScreen',
             debugShowCheckedModeBanner: false,
           );
         });

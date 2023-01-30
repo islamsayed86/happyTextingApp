@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/styles.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
+import 'package:intl/intl.dart';
 
 class SelectRpeatTimeWidget extends StatefulWidget {
   const SelectRpeatTimeWidget(
@@ -17,18 +18,22 @@ class SelectRpeatTimeWidget extends StatefulWidget {
 }
 
 class _SelectRpeatTimeWidgetState extends State<SelectRpeatTimeWidget> {
-  // final hours = selectedTime.hour.toString().padLeft(2, '0');
-  // final minutes = selectedTime.minute.toString().padLeft(2, '0');
-  int selectedHour = DateTime.now().hour;
-  List hoursList = List<int>.generate(24, (i) => i + 1);
+  var selectedHour = DateFormat.jm().format(DateTime.now()).split(":")[0];
+  // int.parse(DateFormat.jm().format(DateTime.now()).split(":")[0]) < 10
+  //     ? '0${DateFormat.jm().format(DateTime.now()).split(":")[0]}'
+  //     : DateFormat.jm().format(DateTime.now()).split(":")[0];
+  List hoursList = List<int>.generate(12, (i) => i + 1);
   int selectedMinute = DateTime.now().minute;
   List minutesList = List<int>.generate(59, (i) => i + 1);
 
   List amOrpmlist = [
     'am',
     'pm',
-  ]; ////now time ??
-  String selectedamOrpm = 'am'; ////now time ??
+  ];
+  String selectedamOrpm = DateFormat.jm()
+      .format(DateTime.now())
+      .replaceRange(0, 5, "")
+      .toLowerCase();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class _SelectRpeatTimeWidgetState extends State<SelectRpeatTimeWidget> {
             hight: 48.h,
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.sp, 14.sp, 17.sp, 10.sp),
-              child: DropdownButtonFormField(
+              child: DropdownButtonFormField<String>(
                 isExpanded: true,
                 decoration: const InputDecoration.collapsed(hintText: ''),
                 menuMaxHeight: 96.h,
@@ -50,8 +55,8 @@ class _SelectRpeatTimeWidgetState extends State<SelectRpeatTimeWidget> {
                 value: selectedHour,
                 items: hoursList
                     .map(
-                      (item) => DropdownMenuItem<int>(
-                        value: item,
+                      (item) => DropdownMenuItem<String>(
+                        value: item.toString(),
                         child: Text(
                           '$item',
                           style: kText16MediumGrey2,
@@ -60,9 +65,9 @@ class _SelectRpeatTimeWidgetState extends State<SelectRpeatTimeWidget> {
                     )
                     .toList(),
                 onChanged: ((item) => setState(() {
-                      print(item);
                       selectedHour = item!;
-                      widget.selectedHourCallBack(selectedHour).toString();
+                      widget.selectedHourCallBack(selectedHour);
+                      print(item);
                     })),
               ),
             ),
@@ -114,9 +119,7 @@ class _SelectRpeatTimeWidgetState extends State<SelectRpeatTimeWidget> {
                 menuMaxHeight: 96.h,
                 elevation: 0,
                 iconSize: 20.sp,
-                value: selectedHour <= 12
-                    ? selectedamOrpm = 'am'
-                    : selectedamOrpm = 'pm',
+                value: selectedamOrpm,
                 items: amOrpmlist
                     .map(
                       (item) => DropdownMenuItem(

@@ -17,16 +17,15 @@ class StopRpeatTimeWidget extends StatefulWidget {
 }
 
 class _StopRpeatTimeWidgetState extends State<StopRpeatTimeWidget> {
-  int stopSelectedHour = DateTime.now().hour;
-  List hoursList = List<int>.generate(12, (i) => i + 1);
   int stopSelectedMinute = DateTime.now().minute;
+  List hoursList = List<int>.generate(24, (i) => i + 1);
+  int stopSelectedHour = DateTime.now().hour;
   List minutesList = List<int>.generate(59, (i) => i + 1);
-
   List amOrpmlist = [
     'am',
     'pm',
   ]; ////now time ??
-  String selectedamOrpm = 'am'; ////now time ??
+  String selectedamOrpm = 'am';
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +109,6 @@ class _StopRpeatTimeWidgetState extends State<StopRpeatTimeWidget> {
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.sp, 14.sp, 17.sp, 10.sp),
               child: DropdownButtonFormField(
-                // hint: Text((stopSelectedHour <= 12 ? 'am' : 'pm')),
                 isExpanded: true,
                 decoration: const InputDecoration.collapsed(hintText: ''),
                 menuMaxHeight: 96.h,

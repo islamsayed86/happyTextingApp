@@ -275,6 +275,7 @@ class SharedAppBar extends StatelessWidget with PreferredSizeWidget {
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 15.sp),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   title2 ?? ('My Textwords'),
@@ -297,7 +298,9 @@ class SharedAppBar extends StatelessWidget with PreferredSizeWidget {
                       height: 24.h,
                     ),
                     CustomizedButton(
-                      text: 'Clone this campaign',
+                      text: (appBarWithButtonAndSubtitle == true)
+                          ? 'Set Up a New Textword'
+                          : 'Clone this campaign',
                       ontap: () {},
                       width: 340.w,
                       color: kLightBlueColor2,

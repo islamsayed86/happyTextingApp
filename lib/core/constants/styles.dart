@@ -139,7 +139,10 @@ const kText16Grey = TextStyle(fontSize: 16, color: kGreyColor);
 const kText25Grey = TextStyle(fontSize: 25, color: Colors.grey);
 const kText14Bold = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
 const kText14 = TextStyle(fontSize: 14);
-const kText16 = TextStyle(fontSize: 16);
+const kText14SemiBold =
+    TextStyle(fontSize: 14, color: kGreyColor2, fontWeight: FontWeight.w500);
+const kText16SemiBold =
+    TextStyle(fontSize: 16, color: kGrey, fontWeight: FontWeight.w500);
 const kText18 = TextStyle(fontSize: 18);
 
 const kText24SemiBold = TextStyle(
@@ -152,6 +155,11 @@ const kText24SemiBoldLightBlue = TextStyle(
   fontWeight: FontWeight.w500,
   color: kAppBarBarSendIconColor,
 );
+const kText24SemiBoldLightBlue2 = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+    color: kLightBlueColor2,
+    fontFamily: appFontSemiBold);
 
 const kText21SemiBold = TextStyle(
   fontSize: 21,
@@ -162,5 +170,7 @@ const kText21SemiBold = TextStyle(
 const kText16Bold = TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
 const kText12 =
     TextStyle(fontSize: 12, color: kDarkerGrey, fontFamily: appFontBold);
+const kText12White =
+    TextStyle(fontSize: 12, color: Colors.white, fontFamily: appFontBold);
 const kText27BoldGrey =
     TextStyle(color: kGreyColor, fontSize: 27, fontWeight: FontWeight.bold);

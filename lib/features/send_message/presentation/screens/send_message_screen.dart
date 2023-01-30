@@ -13,6 +13,7 @@ import 'package:happy_texting/core/widgets/show_snackbar.dart';
 import 'package:happy_texting/features/send_message/presentation/widgets/date_time_picker.dart';
 import 'package:happy_texting/features/send_message/presentation/widgets/select_repeat_time.dart';
 import 'package:happy_texting/features/send_message/presentation/widgets/stop_repeat_time.dart';
+import 'package:intl/intl.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class SendMassageScreen extends StatefulWidget {
@@ -32,12 +33,12 @@ enum StopRepeating { whenTurnedOff, onSpecificDay }
 
 class _SendMassageScreenState extends State<SendMassageScreen> {
   final GlobalKey<FormState> formKey = GlobalKey();
-
   final GlobalKey<FormState> textWordKey = GlobalKey();
   final GlobalKey<FormState> dateKey = GlobalKey();
   final GlobalKey<FormState> selectedDayKey = GlobalKey();
   final GlobalKey<FormState> repeatPeriodKey = GlobalKey();
   final GlobalKey<FormState> stopRepeatingKey = GlobalKey();
+
   int? numOfMessageFiledCharacters = 0;
   SendMessagestartTimeIs sendMessagestartTime = SendMessagestartTimeIs.now;
   RepeatItEvery repeatItEvery = RepeatItEvery.month;
@@ -45,12 +46,21 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
   final TextEditingController _campaignNameController = TextEditingController();
   final TextEditingController _messageFieldController = TextEditingController();
   String? selectedTextWord;
-  // var selectedHour = DateFormat.jm().format(DateTime.now().hour as DateTime);
+  String? campaignName;
+
+  var hour =
+      int.parse(DateFormat.jm().format(DateTime.now()).split(":")[0]) < 10
+          ? '0${DateFormat.jm().format(DateTime.now()).split(":")[0]}'
+          : DateFormat.jm().format(DateTime.now()).split(":")[0];
+
   int selectedMinute = DateTime.now().minute;
-  int selectedHour = DateTime.now().hour;
-  int stopSelectedMinute = DateTime.now().minute;
+  String selectedHour =
+      int.parse(DateFormat.jm().format(DateTime.now()).split(":")[0]) < 10
+          ? '0${DateFormat.jm().format(DateTime.now()).split(":")[0]}'
+          : DateFormat.jm().format(DateTime.now()).split(":")[0];
   int stopSelectedHour = DateTime.now().hour;
   String? selectedDate;
+  String? textMessage;
   List textWordsList = [
     'text word 1',
     'text word 2',
@@ -119,6 +129,8 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                           validator: (value) {
                             if (value != null && value.isEmpty) {
                               return 'please type a campign name';
+                            } else {
+                              campaignName = value;
                             }
                           },
                         ),
@@ -173,8 +185,8 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                                         selectedTextWord = item!;
                                         print(item);
                                       })),
-                                  validator: (value) {
-                                    if (value == null) {
+                                  validator: (textWord) {
+                                    if (textWord == null) {
                                       return 'please select a text word';
                                     }
                                   },
@@ -191,7 +203,8 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Text Message',
+                              'Text Message  hour ',
+                              //  ${hour.substring(0, 1).padLeft(2, '0')}  ${hour.substring(2, 4).padLeft(2, '0')}  ${hour.substring(4, 7)}
                               style: kText13SemiBoldGrey,
                             ),
                             Text(
@@ -209,6 +222,8 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                           validator: (value) {
                             if (value != null && value.isEmpty) {
                               return 'please type a text message';
+                            } else {
+                              textMessage = value;
                             }
                           },
                           onChanged: (data) {
@@ -527,9 +542,9 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                                 height: 7.h,
                               ),
                               SelectRpeatTimeWidget(
-                                selectedHourCallBack: (hour) {
+                                selectedHourCallBack: (item) {
                                   setState(() {
-                                    selectedHour = hour;
+                                    selectedHour = item;
                                   });
                                 },
                                 selectedminuteCallBack: (minute) {
@@ -662,6 +677,7 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                       ],
                     ),
                   ),
+
                   Visibility(
                     visible: sendMessagestartTime ==
                         SendMessagestartTimeIs.regularly,
@@ -706,6 +722,7 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                       ],
                     ),
                   ),
+
                   SizedBox(
                     height: (sendMessagestartTime == SendMessagestartTimeIs.now)
                         ? 41.h
@@ -733,24 +750,30 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                             : 'Create Message',
                     ontap: () {
                       //check the validation for all send cases
-                      formKey.currentState!.validate();
-                      textWordKey.currentState!.validate();
-                      if ((sendMessagestartTime ==
-                              SendMessagestartTimeIs.later) ||
-                          (sendMessagestartTime ==
-                                      SendMessagestartTimeIs.regularly &&
-                                  repeatItEvery == RepeatItEvery.month ||
-                              repeatItEvery == RepeatItEvery.week)) {
-                        dateKey.currentState!.validate();
-                        selectedDayKey.currentState!.validate();
-                      }
-                      if ((sendMessagestartTime ==
-                          SendMessagestartTimeIs.regularly)) {
-                        repeatPeriodKey.currentState!.validate();
-                      }
-                      if ((sendMessagestartTime ==
-                          SendMessagestartTimeIs.regularly)) {
-                        stopRepeatingKey.currentState!.validate();
+                      print(hour);
+
+                      if (formKey.currentState!.validate() &&
+                          textWordKey.currentState!.validate()) {
+                        print(campaignName);
+                        print(selectedTextWord);
+                        print(textMessage);
+
+                        if (sendMessagestartTime ==
+                                SendMessagestartTimeIs.later &&
+                            dateKey.currentState!.validate()) {
+                          print(selectedDate);
+                          print(selectedHour);
+                          print(selectedMinute);
+                        }
+                        if (sendMessagestartTime ==
+                                    SendMessagestartTimeIs.regularly &&
+                                repeatItEvery == RepeatItEvery.month ||
+                            repeatItEvery == RepeatItEvery.week) {
+                          dateKey.currentState!.validate();
+                          selectedDayKey.currentState!.validate();
+                          repeatPeriodKey.currentState!.validate();
+                          stopRepeatingKey.currentState!.validate();
+                        }
                       }
 
                       // print(DateFormat('EEEE').format(DateTime.now()));

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:happy_texting/features/dashboard/presentation/screens/dashbard_screen.dart';
 import 'package:happy_texting/features/auth_feature/presentation/screens/login_screen.dart';
 import 'package:happy_texting/features/auth_feature/presentation/screens/reset_password_page.dart';
+import 'package:happy_texting/features/my_text_word/presentaion/screens/my_text_word_screen.dart';
 
 import '../../features/auth_feature/presentation/screens/forgot_password_screen.dart';
 import '../../features/send_message/presentation/screens/send_message_screen.dart';
@@ -13,4 +14,5 @@ Map<String, WidgetBuilder> appRoutes = {
   'ForgotPassword': (context) => ForgotPassword(),
   'DashboardScreen': (context) => const DashboardScreen(),
   'SendMassageScreen': (context) => const SendMassageScreen(),
+  'MyTextWordScreen': (context) => const MyTextWordScreen(),
 };
