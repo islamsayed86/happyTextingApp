@@ -4,7 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/colors.dart';
 
 // This is the type used by the popup menu below.
-enum SampleItem { itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix }
+enum PopUpMenName {
+  itemOne,
+  sendMessage,
+  itemThree,
+  itemFour,
+  itemFive,
+  itemSix
+}
 
 class TextWordPopupMenu extends StatefulWidget {
   const TextWordPopupMenu({super.key});
@@ -14,7 +21,7 @@ class TextWordPopupMenu extends StatefulWidget {
 }
 
 class _TextWordPopupMenuState extends State<TextWordPopupMenu> {
-  SampleItem? selectedMenu;
+  PopUpMenName? selectedMenu;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +33,7 @@ class _TextWordPopupMenuState extends State<TextWordPopupMenu> {
             color: kGreyWhiteColor,
             borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Center(
-          child: PopupMenuButton<SampleItem>(
+          child: PopupMenuButton<PopUpMenName>(
             icon: const Icon(
               Icons.keyboard_arrow_down,
               color: Colors.white,
@@ -37,34 +44,40 @@ class _TextWordPopupMenuState extends State<TextWordPopupMenu> {
             // initialValue: selectedMenu,
             offset: Offset(-90.sp, -100.sp),
             // Callback that sets the selected popup menu item.
-            onSelected: (SampleItem item) {
+            onSelected: (PopUpMenName item) {
               setState(() {
                 selectedMenu = item;
               });
             },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
-              const PopupMenuItem<SampleItem>(
-                value: SampleItem.itemOne,
+            itemBuilder: (BuildContext context) =>
+                <PopupMenuEntry<PopUpMenName>>[
+              const PopupMenuItem<PopUpMenName>(
+                value: PopUpMenName.itemOne,
                 child: Text('Settings'),
               ),
-              const PopupMenuItem<SampleItem>(
-                value: SampleItem.itemTwo,
-                child: Text('Send Message'),
+              PopupMenuItem<PopUpMenName>(
+                value: PopUpMenName.sendMessage,
+                child: InkWell(
+                  child: const Text('Send Message'),
+                  onTap: () {
+                    Navigator.pushNamed(context, 'SendMassageScreen');
+                  },
+                ),
               ),
-              const PopupMenuItem<SampleItem>(
-                value: SampleItem.itemThree,
+              const PopupMenuItem<PopUpMenName>(
+                value: PopUpMenName.itemThree,
                 child: Text('Add Contact'),
               ),
-              const PopupMenuItem<SampleItem>(
-                value: SampleItem.itemFour,
+              const PopupMenuItem<PopUpMenName>(
+                value: PopUpMenName.itemFour,
                 child: Text('Segments'),
               ),
-              const PopupMenuItem<SampleItem>(
-                value: SampleItem.itemFive,
+              const PopupMenuItem<PopUpMenName>(
+                value: PopUpMenName.itemFive,
                 child: Text('View Analytics'),
               ),
-              const PopupMenuItem<SampleItem>(
-                value: SampleItem.itemSix,
+              const PopupMenuItem<PopUpMenName>(
+                value: PopUpMenName.itemSix,
                 child: Text('Delet'),
               ),
             ],

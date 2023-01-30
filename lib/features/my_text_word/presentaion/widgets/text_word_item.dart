@@ -25,9 +25,11 @@ class _TextWordItemState extends State<TextWordItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 15.sp,
-        vertical: 16.sp,
+      padding: EdgeInsets.fromLTRB(
+        15.sp,
+        .2.sp,
+        15.sp,
+        10.3.sp,
       ),
       child: SizedBox(
         height: 46.5.h,
@@ -70,7 +72,7 @@ class _TextWordItemState extends State<TextWordItem> {
                 decoration: const BoxDecoration(
                     color: kGreyWhiteColor,
                     borderRadius: BorderRadius.all(Radius.circular(4))),
-                child: TextWordPopupMenu()),
+                child: const TextWordPopupMenu()),
           ],
         ),
       ),
