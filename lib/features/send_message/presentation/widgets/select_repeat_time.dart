@@ -27,8 +27,8 @@ class _SelectRpeatTimeWidgetState extends State<SelectRpeatTimeWidget> {
   List minutesList = List<int>.generate(59, (i) => i + 1);
 
   List amOrpmlist = [
-    'am',
-    'pm',
+    ' am',
+    ' pm',
   ];
   String selectedamOrpm = DateFormat.jm()
       .format(DateTime.now())

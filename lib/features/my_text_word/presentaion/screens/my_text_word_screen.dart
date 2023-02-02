@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/colors.dart';
 
 import 'package:happy_texting/core/shared/shared_app_bar.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
+// import 'package:happy_texting/features/my_text_word/presentaion/widgets/text_word_item.dart';
 import 'package:happy_texting/features/my_text_word/presentaion/widgets/text_words_container.dart';
 import 'package:happy_texting/features/my_text_word/presentaion/widgets/textwords_title_container.dart';
 
@@ -34,10 +36,7 @@ class _MyTextWordScreenState extends State<MyTextWordScreen> {
           child: Column(
             children: const [
               TextWordsTitileContainer(),
-              TextWordsContainer(
-                textWordTitle: 'bliss',
-                contacts: 188,
-              ),
+              TextWordItemContainer(),
             ],
           ),
         ),

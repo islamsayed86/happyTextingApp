@@ -1,0 +1,39 @@
+[
+    {
+"textWordTitle":"word",
+"contacts":10,
+"isActive":true
+
+}
+,{
+    "textWordTitle":"word1",
+    "contacts":20,
+    "isActive":true
+    
+    }
+,{
+    "textWordTitle":"word2",
+    "contacts":30,
+    "isActive":true
+    
+    }
+,{
+    "textWordTitle":"word3",
+    "contacts":40,
+    "isActive":true
+    
+    }
+,{
+    "textWordTitle":"word4",
+    "contacts":50,
+    "isActive":true
+    
+    }
+,{
+    "textWordTitle":"word5",
+    "contacts":60,
+    "isActive":true
+    
+    }
+
+]

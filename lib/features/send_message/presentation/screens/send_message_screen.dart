@@ -31,6 +31,8 @@ enum RepeatItEvery { day, week, month }
 
 enum StopRepeating { whenTurnedOff, onSpecificDay }
 
+enum PopUpMenNumber { itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix }
+
 class _SendMassageScreenState extends State<SendMassageScreen> {
   final GlobalKey<FormState> formKey = GlobalKey();
   final GlobalKey<FormState> textWordKey = GlobalKey();
@@ -43,6 +45,7 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
   SendMessagestartTimeIs sendMessagestartTime = SendMessagestartTimeIs.now;
   RepeatItEvery repeatItEvery = RepeatItEvery.month;
   StopRepeating? stopRepeating;
+  PopUpMenNumber? popUpMenNumber;
   final TextEditingController _campaignNameController = TextEditingController();
   final TextEditingController _messageFieldController = TextEditingController();
   String? selectedTextWord;
@@ -85,6 +88,7 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    // TextWordItem  textWordTitle = ModalRoute.of(context)!.settings.arguments;
     return Scaffold(
       backgroundColor: kLightGrey1,
       appBar: const SharedAppBar(
@@ -203,7 +207,7 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Text Message  hour ',
+                              'Text Message',
                               //  ${hour.substring(0, 1).padLeft(2, '0')}  ${hour.substring(2, 4).padLeft(2, '0')}  ${hour.substring(4, 7)}
                               style: kText13SemiBoldGrey,
                             ),
