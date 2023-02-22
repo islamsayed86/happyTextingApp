@@ -10,6 +10,7 @@ import 'package:happy_texting/core/widgets/custom_text_field.dart';
 import 'package:happy_texting/core/widgets/customized_button.dart';
 import 'package:happy_texting/core/widgets/message_field.dart';
 import 'package:happy_texting/core/widgets/show_snackbar.dart';
+import 'package:happy_texting/features/my_text_word/data/models/text_word_model.dart';
 import 'package:happy_texting/features/send_message/presentation/widgets/date_time_picker.dart';
 import 'package:happy_texting/features/send_message/presentation/widgets/select_repeat_time.dart';
 import 'package:happy_texting/features/send_message/presentation/widgets/stop_repeat_time.dart';
@@ -31,7 +32,14 @@ enum RepeatItEvery { day, week, month }
 
 enum StopRepeating { whenTurnedOff, onSpecificDay }
 
-enum PopUpMenNumber { itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix }
+enum PopUpMenuNumber {
+  itemOne,
+  itemTwo,
+  itemThree,
+  itemFour,
+  itemFive,
+  itemSix
+}
 
 class _SendMassageScreenState extends State<SendMassageScreen> {
   final GlobalKey<FormState> formKey = GlobalKey();
@@ -45,7 +53,7 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
   SendMessagestartTimeIs sendMessagestartTime = SendMessagestartTimeIs.now;
   RepeatItEvery repeatItEvery = RepeatItEvery.month;
   StopRepeating? stopRepeating;
-  PopUpMenNumber? popUpMenNumber;
+  PopUpMenuNumber? popUpMenNumber = PopUpMenuNumber.itemTwo;
   final TextEditingController _campaignNameController = TextEditingController();
   final TextEditingController _messageFieldController = TextEditingController();
   String? selectedTextWord;
@@ -88,7 +96,8 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    // TextWordItem  textWordTitle = ModalRoute.of(context)!.settings.arguments;
+    TextWordModel textWordModel =
+        ModalRoute.of(context)!.settings.arguments as TextWordModel;
     return Scaffold(
       backgroundColor: kLightGrey1,
       appBar: const SharedAppBar(
@@ -165,7 +174,10 @@ class _SendMassageScreenState extends State<SendMassageScreen> {
                                 padding: EdgeInsets.fromLTRB(
                                     16.sp, 14.sp, 10.sp, 10.sp),
                                 child: DropdownButtonFormField(
-                                  hint: const Text('[text words]'),
+                                  hint: Text(
+                                      popUpMenNumber == PopUpMenuNumber.itemTwo
+                                          ? textWordModel.textWord
+                                          : '[text words]'),
                                   isExpanded: true,
                                   decoration: const InputDecoration.collapsed(
                                       hintText: ''),

@@ -4,10 +4,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:happy_texting/features/my_text_word/data/cubits/text_words_cubit/text_words_cubit.dart';
+import 'package:happy_texting/features/my_text_word/data/models/text_words_model.dart';
+import 'package:happy_texting/features/my_text_word/data/sevices/text_word_sevices.dart';
 import 'package:happy_texting/features/my_text_word/presentaion/widgets/text_word_item.dart';
 
-import '../../data/text_word_model.dart';
+import '../../data/models/text_word_model.dart';
 
 class TextWordItemContainer extends StatefulWidget {
   const TextWordItemContainer({
@@ -19,12 +23,22 @@ class TextWordItemContainer extends StatefulWidget {
 }
 
 class _TextWordItemContainerState extends State<TextWordItemContainer> {
+  TextWordsModelData? textWordsModel;
+  Future getTexWords() async {
+    TextWordService service = const TextWordService();
+    TextWordsModelData textWord = await service.getTextWord();
+    setState(() {
+      textWordsModel = textWord;
+    });
+  }
+
   List _items = [];
   List<TextWordModel> textWordsList = [];
+
 // Fetch content from the json file
   Future<void> readJson() async {
-    final String response =
-        await rootBundle.loadString('lib/features/my_text_word/data/data.json');
+    final String response = await rootBundle
+        .loadString('lib/features/my_text_word/data/json_data/data.json');
     final data = await json.decode(response) as List;
     data.forEach((element) {
       var textWord = TextWordModel.fromJson(element);
@@ -38,36 +52,49 @@ class _TextWordItemContainerState extends State<TextWordItemContainer> {
   @override
   void initState() {
     readJson();
+    getTexWords();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 334.h,
-      child: ListView.separated(
-        itemCount: textWordsList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return TextWordItem(
-            textWordModel: textWordsList[index],
-            // textWordTitle: _items[index]['textWordTitle'],
-            // contacts: _items[index]['contacts'],
-            // isActive: _items[index]['isActive'],
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
+    return BlocConsumer<TextWordsCubit, TextWordsState>(
+      listener: (context, state) {
+        if (state is TextWordsLoading) {
+          // BlocProvider.of<TextWordsCubit>(context).getTexWords();
+        }
+      },
+      builder: (context, state) {
+        return SizedBox(
+          height: 334.h,
+          child: ListView.separated(
+            itemCount: textWordsList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return TextWordItem(
+                textWordModel: textWordsList[index],
+                textWordsModel: textWordsModel,
 
-        // children: [
-        //   ...List<Widget>.generate(
-        //     _items.length,
-        //     (index) => TextWordItem(
-        //       textWordTitle: _items[index]['textWordTitle'],
-        //       contacts: _items[index]['contacts'],
-        //       isActive: _items[index]['isActive'],
-        //     ),
-        //   ),
-        // ],
-      ),
+                /* textWordTitle: _items[index]['textWordTitle'],
+                 contacts: _items[index]['contacts'],
+                 isActive: _items[index]['isActive'],*/
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(),
+
+            // children: [
+            //   ...List<Widget>.generate(
+            //     _items.length,
+            //     (index) => TextWordItem(
+            //       textWordTitle: _items[index]['textWordTitle'],
+            //       contacts: _items[index]['contacts'],
+            //       isActive: _items[index]['isActive'],
+            //     ),
+            //   ),
+            // ],
+          ),
+        );
+      },
     );
   }
 }

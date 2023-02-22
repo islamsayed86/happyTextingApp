@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/helpers/app_router.dart';
+import 'package:happy_texting/features/my_text_word/data/cubits/text_words_cubit/text_words_cubit.dart';
 
 void main() {
   runApp(const HappyTexting());
@@ -17,10 +19,13 @@ class HappyTexting extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return MaterialApp(
-            routes: appRoutes,
-            initialRoute: 'MyTextWordScreen',
-            debugShowCheckedModeBanner: false,
+          return BlocProvider(
+            create: (context) => TextWordsCubit(),
+            child: MaterialApp(
+              routes: appRoutes,
+              initialRoute: 'MyTextWordScreen',
+              debugShowCheckedModeBanner: false,
+            ),
           );
         });
   }

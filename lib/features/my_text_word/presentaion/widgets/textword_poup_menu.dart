@@ -3,26 +3,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/colors.dart';
 import 'package:happy_texting/core/constants/styles.dart';
 
+import '../../data/models/text_word_model.dart';
+
 // This is the type used by the popup menu below.
 enum PopUpMenNumber { itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix }
 
 class TextWordPopupMenu extends StatefulWidget {
-  const TextWordPopupMenu(
-      {super.key,
-      required this.textWordTitle,
-      required this.contacts,
-      required this.isActive});
-  final String textWordTitle;
-  final int contacts;
-  final bool isActive;
+  const TextWordPopupMenu({
+    super.key,
+    required this.textWordModel,
+  });
+  final TextWordModel textWordModel;
+
   @override
   State<TextWordPopupMenu> createState() => _TextWordPopupMenuState();
 }
 
 class _TextWordPopupMenuState extends State<TextWordPopupMenu> {
   PopUpMenNumber? selectedMenu;
-  PopUpMenNumber? popUpMenNumber;
-
+  PopUpMenNumber? popUpMenuNumber;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,17 +57,10 @@ class _TextWordPopupMenuState extends State<TextWordPopupMenu> {
                 child: PopUpMenuChild(
                   itemTitle: 'Send Message',
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      'SendMassageScreen',
-                      // arguments: TextWordItem(
-                      //   textWordTitle: widget.textWordTitle,
-                      //   contacts: widget.contacts,
-                      //   isActive: widget.isActive,
-                      // ),
-                    );
+                    Navigator.pushNamed(context, 'SendMassageScreen',
+                        arguments: widget.textWordModel);
                     setState(() {
-                      popUpMenNumber = PopUpMenNumber.itemTwo;
+                      popUpMenuNumber = PopUpMenNumber.itemTwo;
                     });
                   },
                 ),

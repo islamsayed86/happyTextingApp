@@ -1,10 +1,14 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/colors.dart';
+import 'package:happy_texting/features/my_text_word/data/models/text_words_model.dart';
 
 import 'package:happy_texting/core/shared/shared_app_bar.dart';
 import 'package:happy_texting/core/widgets/custom_container.dart';
+import 'package:happy_texting/features/my_text_word/data/sevices/text_word_sevices.dart';
 // import 'package:happy_texting/features/my_text_word/presentaion/widgets/text_word_item.dart';
 import 'package:happy_texting/features/my_text_word/presentaion/widgets/text_words_container.dart';
 import 'package:happy_texting/features/my_text_word/presentaion/widgets/textwords_title_container.dart';
@@ -17,6 +21,7 @@ class MyTextWordScreen extends StatefulWidget {
 }
 
 class _MyTextWordScreenState extends State<MyTextWordScreen> {
+  TextWordsModelData? textWords;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +38,23 @@ class _MyTextWordScreenState extends State<MyTextWordScreen> {
         ),
         child: CustomContainer(
           hight: 565.h,
-          child: Column(
-            children: const [
-              TextWordsTitileContainer(),
-              TextWordItemContainer(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    TextWordService service = const TextWordService();
+                    TextWordsModelData textWord = await service.getTextWord();
+
+                    print(
+                        'number Of Contacts = ${textWord.data!.textWordData![0].numberOfContacts}');
+                  },
+                  child: const Text('print data'),
+                ),
+                const TextWordsTitileContainer(),
+                const TextWordItemContainer(),
+              ],
+            ),
           ),
         ),
       ),
