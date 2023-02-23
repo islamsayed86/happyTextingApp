@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_function_literals_in_foreach_calls, unused_field
 
 import 'dart:convert';
+// import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/features/my_text_word/data/cubits/text_words_cubit/text_words_cubit.dart';
 import 'package:happy_texting/features/my_text_word/data/models/text_words_model.dart';
-import 'package:happy_texting/features/my_text_word/data/sevices/text_word_sevices.dart';
+// import 'package:happy_texting/features/my_text_word/data/sevices/text_word_sevices.dart';
 import 'package:happy_texting/features/my_text_word/presentaion/widgets/text_word_item.dart';
 
 import '../../data/models/text_word_model.dart';
@@ -24,13 +25,13 @@ class TextWordItemContainer extends StatefulWidget {
 
 class _TextWordItemContainerState extends State<TextWordItemContainer> {
   TextWordsModelData? textWordsModel;
-  Future getTexWords() async {
-    TextWordService service = const TextWordService();
-    TextWordsModelData textWord = await service.getTextWord();
-    setState(() {
-      textWordsModel = textWord;
-    });
-  }
+  // Future getTexWords() async {
+  //   TextWordService service = const TextWordService();
+  //   TextWordsModelData textWord = await service.getTextWord();
+  //   setState(() {
+  //     // textWordsModel = textWord;
+  //   });
+  // }
 
   List _items = [];
   List<TextWordModel> textWordsList = [];
@@ -51,8 +52,8 @@ class _TextWordItemContainerState extends State<TextWordItemContainer> {
 
   @override
   void initState() {
-    readJson();
-    getTexWords();
+    Future.delayed(Duration.zero).then((value) async => textWordsModel =
+        await BlocProvider.of<TextWordsCubit>(context).getTexWords());
     super.initState();
   }
 
@@ -61,39 +62,56 @@ class _TextWordItemContainerState extends State<TextWordItemContainer> {
     return BlocConsumer<TextWordsCubit, TextWordsState>(
       listener: (context, state) {
         if (state is TextWordsLoading) {
-          // BlocProvider.of<TextWordsCubit>(context).getTexWords();
+          // var textWordsModel =
+          //     BlocProvider.of<TextWordsCubit>(context).getTexWords();
         }
       },
       builder: (context, state) {
-        return SizedBox(
-          height: 334.h,
-          child: ListView.separated(
-            itemCount: textWordsList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return TextWordItem(
-                textWordModel: textWordsList[index],
-                textWordsModel: textWordsModel,
+        // log(state.toString());
+        if (state is TextWordsLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is TextWordsSucces) {
+          return SizedBox(
+            height: 334.h,
+            child: ListView.separated(
+              itemCount: BlocProvider.of<TextWordsCubit>(context)
+                  .textWords!
+                  .data!
+                  .textWordData!
+                  .length,
+              itemBuilder: (BuildContext context, int index) {
+                return TextWordItem(
+                  // textWordModel: textWordsList[index],
+                  textWord: BlocProvider.of<TextWordsCubit>(context)
+                      .textWords!
+                      .data!
+                      .textWordData![index],
 
-                /* textWordTitle: _items[index]['textWordTitle'],
+                  /* textWordTitle: _items[index]['textWordTitle'],
                  contacts: _items[index]['contacts'],
                  isActive: _items[index]['isActive'],*/
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(),
 
-            // children: [
-            //   ...List<Widget>.generate(
-            //     _items.length,
-            //     (index) => TextWordItem(
-            //       textWordTitle: _items[index]['textWordTitle'],
-            //       contacts: _items[index]['contacts'],
-            //       isActive: _items[index]['isActive'],
-            //     ),
-            //   ),
-            // ],
-          ),
-        );
+              // children: [
+              //   ...List<Widget>.generate(
+              //     _items.length,
+              //     (index) => TextWordItem(
+              //       textWordTitle: _items[index]['textWordTitle'],
+              //       contacts: _items[index]['contacts'],
+              //       isActive: _items[index]['isActive'],
+              //     ),
+              //   ),
+              // ],
+            ),
+          );
+        } else {
+          return const SizedBox();
+        }
       },
     );
   }

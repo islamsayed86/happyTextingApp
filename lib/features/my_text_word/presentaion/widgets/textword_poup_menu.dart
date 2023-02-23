@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/colors.dart';
 import 'package:happy_texting/core/constants/styles.dart';
 
-import '../../data/models/text_word_model.dart';
+// import '../../data/models/text_word_model.dart';
+import '../../data/models/text_words_model.dart';
 
 // This is the type used by the popup menu below.
 enum PopUpMenNumber { itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix }
@@ -13,7 +14,7 @@ class TextWordPopupMenu extends StatefulWidget {
     super.key,
     required this.textWordModel,
   });
-  final TextWordModel textWordModel;
+  final TextWordDataModel? textWordModel;
 
   @override
   State<TextWordPopupMenu> createState() => _TextWordPopupMenuState();

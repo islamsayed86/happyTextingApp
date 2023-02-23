@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_texting/core/constants/colors.dart';
 import 'package:happy_texting/core/constants/styles.dart';
 import 'package:happy_texting/features/my_text_word/presentaion/widgets/textword_poup_menu.dart';
 
-import '../../data/cubits/text_words_cubit/text_words_cubit.dart';
-import '../../data/models/text_word_model.dart';
+// import '../../data/cubits/text_words_cubit/text_words_cubit.dart';
+// import '../../data/models/text_word_model.dart';
 import '../../data/models/text_words_model.dart';
 
 // import 'package:badges/badges.dart' as badges;
@@ -14,12 +14,10 @@ import '../../data/models/text_words_model.dart';
 class TextWordItem extends StatefulWidget {
   const TextWordItem({
     super.key,
-    required this.textWordModel,
-    this.textWordsModel,
+    required this.textWord,
   });
 
-  final TextWordModel textWordModel;
-  final TextWordsModelData? textWordsModel;
+  final TextWordDataModel textWord;
   @override
   State<TextWordItem> createState() => _TextWordItemState();
 }
@@ -46,9 +44,11 @@ class _TextWordItemState extends State<TextWordItem> {
                 Row(
                   children: [
                     Text(
-                      // '${BlocProvider.of<TextWordsCubit>(context).textWords?.data?.textWordData?[0].title}',
+                      // must loop on this
+                      '${widget.textWord.title}',
+
                       // ${widget.textWordModel.textWord}
-                      '${widget.textWordsModel?.data?.textWordData?[0].title}',
+                      // '${widget.textWordsModel?.data?.textWordData?[0].title}',
                       style: kText24SemiBoldLightBlue2,
                     ),
                     Padding(
@@ -71,7 +71,9 @@ class _TextWordItemState extends State<TextWordItem> {
                   ],
                 ),
                 Text(
-                  '${widget.textWordModel.contacts}',
+                  // '${BlocProvider.of<TextWordsCubit>(context).textWords?.data?.textWordData?[0].numberOfContacts}',
+
+                  '${widget.textWord.numberOfContacts}',
                   style: kText16SemiBold,
                 ),
                 Container(
@@ -81,7 +83,7 @@ class _TextWordItemState extends State<TextWordItem> {
                       color: kGreyWhiteColor,
                       borderRadius: BorderRadius.all(Radius.circular(4))),
                   child: TextWordPopupMenu(
-                    textWordModel: widget.textWordModel,
+                    textWordModel: widget.textWord,
                     //   contacts: widget.textWordModel.contacts,
                     // textWordTitle: widget.textWordModel.textWord,
                     // isActive: widget.textWordModel.isActive,

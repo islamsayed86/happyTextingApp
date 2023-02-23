@@ -16,7 +16,11 @@ class TextWordsCubit extends Cubit<TextWordsState> {
 
       textWords = textWord;
 
-      emit(TextWordssSucces());
+      emit(
+        TextWordsSucces(
+          textWordsList: textWord.data?.textWordData ?? <TextWordDataModel>[],
+        ),
+      );
     } on Exception {
       emit(TextWordsFailed());
     }

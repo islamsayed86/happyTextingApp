@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, missing_required_param
 
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:happy_texting/features/my_text_word/data/helper/api.dart';
@@ -15,7 +15,7 @@ class TextWordService {
     var data = await Api().get(url: '$kBaseUrl/textwords', headers: {
       'Authorization': kToken,
     });
-    log(data.toString());
+    // log(data.toString());
     TextWordsModelData textWords = TextWordsModelData.fromJson(data);
     // print(textWords.data);
     return textWords;

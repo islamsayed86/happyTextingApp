@@ -7,6 +7,9 @@ class TextWordsInitial extends TextWordsState {}
 
 class TextWordsLoading extends TextWordsState {}
 
-class TextWordssSucces extends TextWordsState {}
+class TextWordsSucces extends TextWordsState {
+  final List<TextWordDataModel> textWordsList;
+  TextWordsSucces({required this.textWordsList});
+}
 
 class TextWordsFailed extends TextWordsState {}
