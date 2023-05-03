@@ -8,6 +8,8 @@ class TextWordsCubit extends Cubit<TextWordsState> {
   TextWordsCubit() : super(TextWordsInitial());
   TextWordsModelData? textWords;
 
+  static TextWordsCubit get(context) => BlocProvider.of(context);
+
   Future getTexWords() async {
     emit(TextWordsLoading());
     try {

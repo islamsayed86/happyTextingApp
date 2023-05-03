@@ -52,8 +52,8 @@ class _TextWordItemContainerState extends State<TextWordItemContainer> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((value) async => textWordsModel =
-        await BlocProvider.of<TextWordsCubit>(context).getTexWords());
+    Future.delayed(Duration.zero).then((value) async =>
+        textWordsModel = await TextWordsCubit.get(context).getTexWords());
     super.initState();
   }
 
@@ -76,18 +76,11 @@ class _TextWordItemContainerState extends State<TextWordItemContainer> {
           return SizedBox(
             height: 334.h,
             child: ListView.separated(
-              itemCount: BlocProvider.of<TextWordsCubit>(context)
-                  .textWords!
-                  .data!
-                  .textWordData!
-                  .length,
+              itemCount: state.textWordsList.length,
               itemBuilder: (BuildContext context, int index) {
                 return TextWordItem(
                   // textWordModel: textWordsList[index],
-                  textWord: BlocProvider.of<TextWordsCubit>(context)
-                      .textWords!
-                      .data!
-                      .textWordData![index],
+                  textWord: state.textWordsList[index],
 
                   /* textWordTitle: _items[index]['textWordTitle'],
                  contacts: _items[index]['contacts'],
